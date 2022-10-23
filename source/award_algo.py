@@ -82,6 +82,7 @@ class Must_Pass_Algo(Path):
         self.previous_cells = [[None for j in range(self.n_cells)] for i in range(self.n_cells)]
         inf = self.n_cells ** 2
         self.cost_matrix = [[inf if (i != j) else 0 for j in range(self.n_cells)] for i in range(self.n_cells)]
+        self.generations_cost = ""
 
     def find_local_paths_ucs(self, start):
         if (self.map.is_movable(start) == False):
@@ -212,14 +213,14 @@ class Must_Pass_Algo(Path):
     def get_next_gen_by_mating(self, mating_list, size_for_best):
         next_gen = []
         
-        n_new_born = len(mating_list) - size_for_best
+        #n_new_born = len(mating_list) - size_for_best
 
         for i in range(size_for_best):
             next_gen.append(mating_list[i])
 
         mating_list = random.sample(mating_list, len(mating_list))
 
-        for i in range(n_new_born):
+        for i in range(len(mating_list)):
             next_gen.append(self.cross_over(mating_list[i], mating_list[len(mating_list) - i - 1]))
 
         return next_gen
@@ -253,7 +254,9 @@ class Must_Pass_Algo(Path):
     def get_next_gen(self, population, size_for_best, mutation_rate, print_debug):
         ranked_population = self.rank_population(population)
         if (print_debug):
-            print("Cost: ",self.calculate_route_dist(population[ranked_population[0][0]]))
+            cur_cost = self.calculate_route_dist(population[ranked_population[0][0]])
+            print("Cost: ", cur_cost)
+            self.generations_cost += str(cur_cost) + "\n"
         selected_id_list = self.select_population(ranked_population, size_for_best)
         
         #print(selected_id_list)
@@ -298,9 +301,10 @@ class Must_Pass_Algo(Path):
         # print('----------------------')
 
 
-        for i in range(n_generations):
+        for i in range(n_generations + 1):
             if (i % 1000 == 0):
-                print("Gen",i),
+                print("Gen",i)
+                self.generations_cost = self.generations_cost + "Best cost in generation " + str(i) + ": "
             population = self.get_next_gen(population, size_for_best, mutation_rate, (i % 1000 == 0))
 
         # print("Gen final:")
@@ -326,6 +330,7 @@ class Must_Pass_Algo(Path):
         mutation_rate=0.3, n_generations= 20000)
 
         ans = self.calculate_route_dist(tsp_path)
+        self.generations_cost = str(ans) + "\n" + self.generations_cost
         found = (False if ans >= self.n_cells ** 2 else True)
         tsp_path.reverse()
 
@@ -350,7 +355,7 @@ class Must_Pass_Algo(Path):
         
         finding_process = [] # no finding process
 
-        return found, paths, finding_process, ans
+        return found, paths, finding_process, self.generations_cost
         
 
 if __name__ == "__main__":
