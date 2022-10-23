@@ -10,7 +10,9 @@ class Path():
     def get_award(self, node):
         for ap in self.map.awarding_points:
             if ap[0] == node[0] and ap[1] == node[1]:
-                return ap[-1]
+                if ap[-1] < 0:
+                    return ap[-1]
+                return 0
 
         return 0
 
