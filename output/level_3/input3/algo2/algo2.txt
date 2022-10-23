@@ -1,0 +1,22 @@
+184
+Best cost in generation 0: 422
+Best cost in generation 1000: 204
+Best cost in generation 2000: 192
+Best cost in generation 3000: 190
+Best cost in generation 4000: 184
+Best cost in generation 5000: 184
+Best cost in generation 6000: 184
+Best cost in generation 7000: 184
+Best cost in generation 8000: 184
+Best cost in generation 9000: 184
+Best cost in generation 10000: 184
+Best cost in generation 11000: 184
+Best cost in generation 12000: 184
+Best cost in generation 13000: 184
+Best cost in generation 14000: 184
+Best cost in generation 15000: 184
+Best cost in generation 16000: 184
+Best cost in generation 17000: 184
+Best cost in generation 18000: 184
+Best cost in generation 19000: 184
+Best cost in generation 20000: 184

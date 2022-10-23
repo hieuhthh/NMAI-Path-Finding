@@ -39,7 +39,7 @@ class Path():
     def execute(self, out_folder, print_full_cost=False):
         found, paths, closes, ans = self.find_paths()
         out_algo = os.path.join(out_folder, self.algo_name)
-        os.mkdir(out_algo)
+        try_make_dir(out_algo)
         save_path = os.path.join(out_algo, f"{self.algo_name}.mp4")
         window_name = f"{self.algo_name}_{self.map.filename} "
         self.map.show_video(paths, closes, save_path, window_name)
